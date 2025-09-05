@@ -37,11 +37,7 @@ class PostsViewModel: ObservableObject {
     
     do {
       let fetchedPosts = try await postService.fetchPosts()
-      if fetchedPosts.isEmpty {
-        dataState = .empty
-      } else {
-        dataState = .success(data: fetchedPosts)
-      }
+      dataState = fetchedPosts.isEmpty ? .empty : .success(data: fetchedPosts)
     } catch {
       dataState = .failed(error: error)
     }
